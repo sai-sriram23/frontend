@@ -14,10 +14,10 @@ function Reg() {
 
    const submit = async () => {
       try {
-         const res = await axios.post("https://backend-deploy-esf9.onrender.com/register", data);
-         alert(res.data);
+         const res = await axios.post(`${process.env.REACT_APP_API_URL}/register`, data);
+         alert(res.data.message);
       } catch (err) {
-         alert(err.response?.data || "Registration failed. Please try again.");
+         alert(err.response?.data?.message || "Registration failed. Please try again.");
       }
    };
 
