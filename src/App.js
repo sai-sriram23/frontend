@@ -1,8 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Reg from "./Reg";
 import Home from "./Home";
-import Login from "./Login";
 import Dashboard from "./Dashboard";
 
 function App() {
@@ -10,10 +8,11 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Reg />} />
-        <Route path="/login" element={<Login />} />
+        {/* We keep /login and /register as redirects to / just in case anyone bookmarked them */}
+        <Route path="/login" element={<Navigate to="/" />} />
+        <Route path="/register" element={<Navigate to="/" />} />
         <Route path="/dashboard" element={
-          localStorage.getItem("user") ? <Dashboard /> : <Navigate to="/login" />
+          localStorage.getItem("user") ? <Dashboard /> : <Navigate to="/" />
         } />
       </Routes>
     </BrowserRouter>
