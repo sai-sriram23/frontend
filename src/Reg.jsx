@@ -15,9 +15,11 @@ function Reg() {
    const submit = async () => {
       try {
          const res = await axios.post(`${process.env.REACT_APP_API_URL}/register`, data);
-         alert(res.data.message);
+         const msg = typeof res.data === "object" ? res.data.message : res.data;
+         alert(msg);
       } catch (err) {
-         alert(err.response?.data?.message || "Registration failed. Please try again.");
+         const errMsg = err.response?.data?.message || err.response?.data || "Registration failed. Please try again.";
+         alert(errMsg);
       }
    };
 
