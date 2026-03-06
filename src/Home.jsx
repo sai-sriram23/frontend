@@ -22,7 +22,16 @@ function Home() {
             localStorage.setItem("user", JSON.stringify(res.data));
             navigate("/dashboard"); // Successful login -> redirect to dashboard
         } catch (err) {
-            const errMsg = err.response?.data?.message || err.response?.data || "Login failed. Please try again.";
+            let errMsg = "Login failed. Please try again.";
+            if (err.response?.data) {
+                if (typeof err.response.data.message === "string") {
+                    errMsg = err.response.data.message;
+                } else if (typeof err.response.data === "string") {
+                    errMsg = err.response.data;
+                } else {
+                    errMsg = "Invalid request or server error.";
+                }
+            }
             alert(errMsg);
             navigate("/"); // Else home page
         }
@@ -49,7 +58,16 @@ function Home() {
             // Clear registration form on success
             setRegData({ username: "", email: "", password: "", role: "student" });
         } catch (err) {
-            const errMsg = err.response?.data?.message || err.response?.data || "Registration failed. Please try again.";
+            let errMsg = "Registration failed. Please try again.";
+            if (err.response?.data) {
+                if (typeof err.response.data.message === "string") {
+                    errMsg = err.response.data.message;
+                } else if (typeof err.response.data === "string") {
+                    errMsg = err.response.data;
+                } else {
+                    errMsg = "Invalid registration details. Please ensure password is at least 6 characters.";
+                }
+            }
             alert(errMsg);
         }
     };
